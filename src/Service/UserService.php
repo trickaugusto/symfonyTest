@@ -18,14 +18,18 @@ class UserService extends AbstractService
         return $this->model;
     }
 
-    public function getUser($userId)
+    public function get($userId)
     {
         return $this->find($userId);
     }
 
-    public function getAllUsers()
+    public function getAll()
     {
         $users = $this->findAll();
+
+        if(!$users){
+            return false;
+        }
 
         foreach ($users as $user) {
             $data[] = [
@@ -41,9 +45,13 @@ class UserService extends AbstractService
         return $data;
     }
 
-    public function getOneUser($userId)
+    public function getOne($userId)
     {
         $user = $this->find($userId);
+
+        if(!$user){
+            return false;
+        }
 
         return [
             'id' => $user->getId(),
@@ -55,7 +63,7 @@ class UserService extends AbstractService
         ];
     }
 
-    public function addUser($jsonData)
+    public function add($jsonData)
     {
         $user = new User();
         $user->setName($jsonData->name);
@@ -68,7 +76,7 @@ class UserService extends AbstractService
         return $this->save($user);
     }
 
-    public function editUser($id, $jsonData)
+    public function edit($id, $jsonData)
     {
         $user = $this->find($id);
 
@@ -76,13 +84,12 @@ class UserService extends AbstractService
         $user->setEmail($jsonData->email);
         $user->setStatus($jsonData->status);
 
-        $user->setDescription($jsonData->description);
         $user->setUpdatedAt(new \DateTime());
         
         return $this->update();
     }
 
-    public function deleteUser($id)
+    public function delete($id)
     {   
         return $this->delete($this->find($id));
     }

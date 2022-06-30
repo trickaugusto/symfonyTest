@@ -14,13 +14,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     /**
-    * @Route("/user", name="app_user", methods={"GET"})
+    * @Route("/users", name="app_user", methods={"GET"})
     */
     public function showAll(): JsonResponse
     {
         $user = new UserService($this->getDoctrine()->getManager(), User::class);
                 
-        $user = $user->getAllUsers();
+        $user = $user->getAll();
+
+        if (!$user) {
+            return new JsonResponse(['message' => "There is no users created. First, create a user in the post route"], Response::HTTP_NOT_FOUND);
+        }
 
         return new JsonResponse($user, Response::HTTP_OK);
     }
@@ -32,17 +36,17 @@ class UserController extends AbstractController
     {
         $user = new UserService($this->getDoctrine()->getManager(), User::class);
 
-        if (!$user->getUser($id)) {
+        if (!$user->get($id)) {
             return new JsonResponse(['message' => "No user found for id $id"], Response::HTTP_NOT_FOUND);
         }
 
-        return new JsonResponse($user->getOneUser($id));
+        return new JsonResponse($user->getOne($id));
     }
 
     /**
     * @Route("/user", name="create_user", methods={"POST"})
     */
-    public function createUser(ManagerRegistry $doctrine, Request $request): Response
+    public function create(ManagerRegistry $doctrine, Request $request): Response
     {
         // pega dados da requisição
         $requestBody = $request->getContent();
@@ -50,7 +54,7 @@ class UserController extends AbstractController
 
         // instancia um novo user e adiciona no banco
         $user = new UserService($this->getDoctrine()->getManager(), User::class);
-        $user->addUser($jsonData);
+        $user->add($jsonData);
 
         return new JsonResponse(null, 204);
     }
@@ -65,12 +69,12 @@ class UserController extends AbstractController
         
         $user = new UserService($this->getDoctrine()->getManager(), User::class);
         
-        if (!$user->getOneUser($id)) {
+        if (!$user->getOne($id)) {
             return new JsonResponse(['message' => "No user found for id $id"], Response::HTTP_NOT_FOUND);
         }
         
-        $user->editUser($id, $jsonData);
+        $user->edit($id, $jsonData);
 
-        return new JsonResponse($user->getOneUser($id));
+        return new JsonResponse($user->getOne($id));
     }
 }

@@ -14,13 +14,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     /**
-    * @Route("/product", name="app_product", methods={"GET"})
+    * @Route("/products", name="app_product", methods={"GET"})
     */
     public function showAll(): JsonResponse
     {
         $products = new ProductService($this->getDoctrine()->getManager(), Product::class);
                 
-        $products = $products->getAllProducts();
+        $products = $products->getAll();
+
+        if (!$products) {
+            return new JsonResponse(['message' => "There is no products created. First, create a product in the post route"], Response::HTTP_NOT_FOUND);
+        }
 
         return new JsonResponse($products, Response::HTTP_OK);
     }
@@ -32,17 +36,17 @@ class ProductController extends AbstractController
     {
         $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
 
-        if (!$product->getProduct($id)) {
+        if (!$product->getOne($id)) {
             return new JsonResponse(['message' => "No product found for id $id"], Response::HTTP_NOT_FOUND);
         }
 
-        return new JsonResponse($product->getOneProduct($id));
+        return new JsonResponse($product->getOne($id));
     }
 
     /**
     * @Route("/product", name="create_product", methods={"POST"})
     */
-    public function createProduct(ManagerRegistry $doctrine, Request $request): Response
+    public function create(ManagerRegistry $doctrine, Request $request): Response
     {
         // pega dados da requisição
         $requestBody = $request->getContent();
@@ -50,7 +54,7 @@ class ProductController extends AbstractController
 
         // instancia um novo produto e adiciona no banco
         $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
-        $product->addProduct($jsonData);
+        $product->add($jsonData);
 
         return new JsonResponse(null, 204);
     }
@@ -65,12 +69,12 @@ class ProductController extends AbstractController
         
         $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
         
-        if (!$product->getOneProduct($id)) {
+        if (!$product->getOne($id)) {
             return new JsonResponse(['message' => "No product found for id $id"], Response::HTTP_NOT_FOUND);
         }
         
-        $product->editProduct($id, $jsonData);
+        $product->edit($id, $jsonData);
 
-        return new JsonResponse($product->getOneProduct($id));
+        return new JsonResponse($product->getOne($id));
     }
 }

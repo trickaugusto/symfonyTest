@@ -18,14 +18,18 @@ class ProductService extends AbstractService
         return $this->model;
     }
 
-    public function getProduct($productId)
+    public function get($productId)
     {
         return $this->find($productId);
     }
 
-    public function getAllProducts()
+    public function getAll()
     {
         $products = $this->findAll();
+
+        if(!$products){
+            return false;
+        }
 
         foreach ($products as $product) {
             $data[] = [
@@ -41,9 +45,13 @@ class ProductService extends AbstractService
         return $data;
     }
 
-    public function getOneProduct($productId)
+    public function getOne($productId)
     {
         $product = $this->find($productId);
+
+        if(!$product){
+            return false;
+        }
 
         return [
             'id' => $product->getId(),
@@ -55,7 +63,7 @@ class ProductService extends AbstractService
         ];
     }
 
-    public function addProduct($jsonData)
+    public function add($jsonData)
     {
         $product = new Product();
         $product->setStatus($jsonData->status);
@@ -67,7 +75,7 @@ class ProductService extends AbstractService
         return $this->save($product);
     }
 
-    public function editProduct($id, $jsonData)
+    public function edit($id, $jsonData)
     {
         $product = $this->find($id);
 
@@ -79,7 +87,7 @@ class ProductService extends AbstractService
         return $this->update();
     }
 
-    public function deleteProduct($id)
+    public function delete($id)
     {   
         return $this->delete($this->find($id));
     }
