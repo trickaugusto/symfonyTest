@@ -9,7 +9,7 @@ Desafio: Desenvolver uma API RESTful,com envio e retorno de informações no for
 
 # Rotas:
 
-###### Produtos ######
+### Produtos
 /products -> GET:
 Lista os produtos (ID, descricao, valor e status do produto)
 
@@ -32,7 +32,7 @@ Edita um produto existente, esperando como request:
 	"description": "terceiro"
 }
 
-###### Usuario ######
+### Usuario
 /users -> GET:
 Lista todos os usuarios cadastrados (id, nome, email, status do usuario)
 
@@ -56,7 +56,7 @@ Edita um usuario existente, esperando como request:
 }
 
 
-###### Pedido ######
+### Pedido
 /orders -> GET:
 Lista todos os pedidos cadastrados (ID, numero do pedido, status do pedido, produto, descrição do produto, e usuario comprador)
 
