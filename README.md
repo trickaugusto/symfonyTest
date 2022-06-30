@@ -10,13 +10,13 @@ Desafio: Desenvolver uma API RESTful,com envio e retorno de informações no for
 # Rotas:
 
 ###### Produtos ######
-/products -> get:
+/products -> GET:
 Lista os produtos (ID, descricao, valor e status do produto)
 
-/product/{id}:
+/product/{id} -> GET:
 Lista um id em específico
 
-/product -> post:
+/product -> POST:
 Cria um novo produto, esperando como request:
 {
 	"status": "Inativo",
@@ -24,7 +24,7 @@ Cria um novo produto, esperando como request:
 	"description": "terceiro"
 }
 
-/product/{id} -> patch:
+/product/{id} -> PATCH:
 Edita um produto existente, esperando como request:
 {
 	"status": "Inativo",
@@ -33,13 +33,13 @@ Edita um produto existente, esperando como request:
 }
 
 ###### Usuario ######
-/users -> get:
+/users -> GET:
 Lista todos os usuarios cadastrados (id, nome, email, status do usuario)
 
-/user/{id}:
+/user/{id} -> GET:
 Lista um id em específico
 
-/user -> post:
+/user -> POST:
 Cria um novo usuario, esperando como request:
 {
 	"name": "Jão",
@@ -47,7 +47,7 @@ Cria um novo usuario, esperando como request:
 	"status": "ativo"
 }
 
-/user{id} -> patch:
+/user{id} -> PATCH:
 Edita um usuario existente, esperando como request:
 {
 	"name": "Jão",
@@ -57,17 +57,27 @@ Edita um usuario existente, esperando como request:
 
 
 ###### Pedido ######
-/orders -> get:
+/orders -> GET:
 Lista todos os pedidos cadastrados (ID, numero do pedido, status do pedido, produto, descrição do produto, e usuario comprador)
 
-/order/{id}:
+/order/{id} -> GET:
 Lista um id em específico
 
-/order -> post:
-Cria um novo pedido, esperando como parâmetro ID, numero do pedido, status do pedido, produto, descricao do produto e usuario comprador.
+/order -> POST:
+Cria um novo pedido, esperando como request:
+{
+    "status": "inativo",
+    "productId": "4",
+    "userId": "5"
+}
 
-/order -> patch:
-Edita um pedido existente, esperando com parâmetro ID, numero do pedido, status do pedido, produto, descricao do produto e usuario comprador.
+/order{id} -> PATCH:
+Edita um pedido existente, esperando como request:
+{
+    "status": "inativo",
+    "productId": "4",
+    "userId": "5"
+}
 
 # Banco de dados
 
