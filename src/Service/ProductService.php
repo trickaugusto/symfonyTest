@@ -33,6 +33,8 @@ class ProductService extends AbstractService
                 'status' => $product->getStatus(),
                 'price' => $product->getPrice(),
                 'description' => $product->getDescription(),
+                'createdAt' => $product->getCreatedAt()->format('Y-m-d H:i:s'),
+                'updatedAt' => $product->getUpdatedAt()->format('Y-m-d H:i:s')
             ];
         }
 
@@ -48,6 +50,8 @@ class ProductService extends AbstractService
             'status' => $product->getStatus(),
             'price' => $product->getPrice(),
             'description' => $product->getDescription(),
+            'createdAt' => $product->getCreatedAt()->format('Y-m-d H:i:s'),
+            'updatedAt' => $product->getUpdatedAt()->format('Y-m-d H:i:s')
         ];
     }
 
@@ -57,6 +61,8 @@ class ProductService extends AbstractService
         $product->setStatus($jsonData->status);
         $product->setPrice($jsonData->price);
         $product->setDescription($jsonData->description);
+        $product->setCreatedAt(new \DateTime());
+        $product->setUpdatedAt(new \DateTime());
         
         return $this->save($product);
     }
@@ -68,6 +74,7 @@ class ProductService extends AbstractService
         $product->setStatus($jsonData->status);        
         $product->setPrice($jsonData->price);
         $product->setDescription($jsonData->description);
+        $product->setUpdatedAt(new \DateTime());
         
         return $this->update();
     }

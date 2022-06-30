@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class Product
+class User
 {
     /**
      * @ORM\Id
@@ -20,17 +20,17 @@ class Product
     /**
      * @ORM\Column(type="string")
      */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $status;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     /**
     * @ORM\Column(type="datetime")
@@ -47,6 +47,28 @@ class Product
         return $this->id;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+    
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
     public function getStatus()
     {
         return $this->status;
@@ -55,28 +77,6 @@ class Product
     public function setStatus($status)
     {
         $this->status = $status;
-        return $this;
-    }
-    
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    public function setPrice($price)
-    {
-        $this->price = $price;
-        return $this;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
         return $this;
     }
 

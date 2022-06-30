@@ -60,8 +60,8 @@ descricao -> varchar
 valor -> float
 status do produto -> bool
 
-Criando a tabela product
-'CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, status VARCHAR(255) NOT NULL, price DOUBLE PRECISION NOT NULL, description LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;'
+Criando as tabelas:
+'php bin/console doctrine:migrations:migrate'
 
 ###### Usuario ######
 ID -> auto increment
