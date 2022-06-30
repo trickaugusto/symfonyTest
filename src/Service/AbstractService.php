@@ -92,6 +92,11 @@ abstract class AbstractService
         $this->em->flush();
     }
 
+    protected function update()
+    {
+        $this->em->flush();
+    }
+
     protected function entityManager()
     {
         return $this->em;

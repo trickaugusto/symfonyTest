@@ -41,7 +41,7 @@ Edita um usuario existente, esperando como parametro ID, nome, email e status do
 
 ###### Pedido ######
 /pedidos -> get:
-Lista todos os pedidos cadastrados (ID, numero do pedido, status do pedido, produto, descricao, e usuario comprador)
+Lista todos os pedidos cadastrados (ID, numero do pedido, status do pedido, produto, descrição do produto, e usuario comprador)
 
 /pedidos/{id}:
 Lista um id em específico
@@ -60,6 +60,9 @@ descricao -> varchar
 valor -> float
 status do produto -> bool
 
+Criando a tabela product
+'CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, status VARCHAR(255) NOT NULL, price DOUBLE PRECISION NOT NULL, description LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;'
+
 ###### Usuario ######
 ID -> auto increment
 nome -> varchar
@@ -74,8 +77,7 @@ produto -> varchar
 descricao do produto -> varchar
 usuario comprador -> varchar
 
-Criando a tabela product
-'CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, status VARCHAR(255) NOT NULL, price DOUBLE PRECISION NOT NULL, description LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;'
+
 
 # Links de apoio 
 https://blog.codeexpertslearning.com.br/symfony-4-trabalhando-com-banco-de-dados-6a093adac9da

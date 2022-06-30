@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Product;
 use Doctrine\ORM\EntityManager;
 
 class ProductService extends AbstractService
@@ -38,9 +39,37 @@ class ProductService extends AbstractService
         return $data;
     }
 
-    public function addProduct()
+    public function getOneProduct($productId)
     {
-        return $this->save();
+        $product = $this->find($productId);
+
+        return [
+            'id' => $product->getId(),
+            'status' => $product->getStatus(),
+            'price' => $product->getPrice(),
+            'description' => $product->getDescription(),
+        ];
+    }
+
+    public function addProduct($jsonData)
+    {
+        $product = new Product();
+        $product->setStatus($jsonData->status);
+        $product->setPrice($jsonData->price);
+        $product->setDescription($jsonData->description);
+        
+        return $this->save($product);
+    }
+
+    public function editProduct($id, $jsonData)
+    {
+        $product = $this->find($id);
+
+        $product->setStatus($jsonData->status);        
+        $product->setPrice($jsonData->price);
+        $product->setDescription($jsonData->description);
+        
+        return $this->update();
     }
 
     public function deleteProduct($id)

@@ -69,14 +69,4 @@ class Product
         $this->description = $description;
         return $this;
     }
-
-    public function getAllProperties()
-    {
-        return [
-            'id' => $this->id,
-            'status' => $this->status,
-            'price' => $this->price,
-            'description' => $this->description
-        ];
-    }
 }

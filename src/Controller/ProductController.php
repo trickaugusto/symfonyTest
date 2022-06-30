@@ -28,44 +28,31 @@ class ProductController extends AbstractController
     }
 
     /**
-    * @Route("/product/{id}", name="product_show")
+    * @Route("/product/{id}", name="product_show", methods={"GET"})
     */
     public function showOne(int $id): JsonResponse
     {
-        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+        $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
 
-        if (!$product) {
-            return new JsonResponse(['message' => "No product found for id $id"], 404);
+        if (!$product->getProduct($id)) {
+            return new JsonResponse(['message' => "No product found for id $id"], Response::HTTP_NOT_FOUND);
         }
 
-        return new JsonResponse($product->getAllProperties());
+        return new JsonResponse($product->getOneProduct($id));
     }
 
     /**
     * @Route("/product", name="create_product", methods={"POST"})
     */
-    public function createProduct(ValidatorInterface $validator, ManagerRegistry $doctrine, Request $request): Response
+    public function createProduct(ManagerRegistry $doctrine, Request $request): Response
     {
-        $corpoRequisicao = $request->getContent();
-        $dadoJson = json_decode($corpoRequisicao);
+        // pega dados da requisição
+        $requestBody = $request->getContent();
+        $jsonData = json_decode($requestBody);
 
-        $entityManager = $doctrine->getManager();
-
-        $product = new Product();
-        $product->setStatus($dadoJson->status);
-        $product->setPrice($dadoJson->price);
-        $product->setDescription($dadoJson->description);
-
-        $errors = $validator->validate($product);
-        if (count($errors) > 0) {
-            return new Response((string) $errors, 400);
-        }
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($product);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
+        // instancia um novo produto e adiciona no banco
+        $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
+        $product->addProduct($jsonData);
 
         return new JsonResponse(null, 204);
     }
@@ -73,28 +60,19 @@ class ProductController extends AbstractController
     /**
     * @Route("/product/{id}", name="edit_product", methods={"PATCH"})
     */
-    public function edit(ManagerRegistry $doctrine, int $id, Request $request): Response
+    public function edit(ManagerRegistry $doctrine, int $id, Request $request): JsonResponse
     {
-        $corpoRequisicao = $request->getContent();
-        $dadoJson = json_decode($corpoRequisicao);
-
-        $entityManager = $doctrine->getManager();
-        $product = $entityManager->getRepository(Product::class)->find($id);
-
-        if (!$product) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
+        $requestBody = $request->getContent();
+        $jsonData = json_decode($requestBody);
+        
+        $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
+        
+        if (!$product->getOneProduct($id)) {
+            return new JsonResponse(['message' => "No product found for id $id"], Response::HTTP_NOT_FOUND);
         }
+        
+        $product->editProduct($id, $jsonData);
 
-        $product->setStatus($dadoJson->status);
-        $product->setPrice($dadoJson->price);
-        $product->setDescription($dadoJson->description);
-
-        $entityManager->flush();
-
-        return $this->redirectToRoute('product_show', [
-            'id' => $product->getId()
-        ]);
+        return new JsonResponse($product->getOneProduct($id));
     }
 }
