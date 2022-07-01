@@ -11,10 +11,10 @@ Desafio: Desenvolver uma API RESTful,com envio e retorno de informações no for
 
 ## Produtos
 /products -> GET:
-Lista os produtos (ID, descricao, valor e status do produto)
+Lista todos os produtos (id, description, price, status, createdAt e updatedAt);
 
 /product/{id} -> GET:
-Lista um id em específico
+Lista um id em específico (id, description, price, status, createdAt e updatedAt);
 
 /product -> POST:
 Cria um novo produto, esperando como request:
@@ -38,10 +38,10 @@ Edita um produto existente, esperando como request:
 
 ## Usuario
 /users -> GET:
-Lista todos os usuarios cadastrados (id, nome, email, status do usuario)
+Lista todos os usuarios cadastrados (id, name, email, status, createdAt e updatedAt);
 
 /user/{id} -> GET:
-Lista um id em específico
+Lista um id em específico (id, name, email, status, createdAt e updatedAt);
 
 /user -> POST:
 Cria um novo usuario, esperando como request:
@@ -65,7 +65,7 @@ Edita um usuario existente, esperando como request:
 
 ## Pedido
 /orders -> GET:
-Lista todos os pedidos cadastrados (ID, numero do pedido, status do pedido, produto, descrição do produto, e usuario comprador)
+Lista todos os pedidos cadastrados (id, orderNumber, status, productId, productDescription, userId, createdAt e updatedAt);
 
 /order/{id} -> GET:
 Lista um id em específico
