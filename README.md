@@ -107,9 +107,9 @@ Instalando as dependências:
 composer install
 ```
 
-Criando a tabela:
+Criando a base no banco:
 ```bash
-bin/console doctrine:database:create
+php bin/console doctrine:database:create
 ```
 
 Criando as migrations:
@@ -120,6 +120,7 @@ php bin/console make:migration
 ```bash
 php bin/console doctrine:migrations:migrate
 ```
+Digite "yes" no terminal para os dois comandos acima.
 
 Rodando o projeto
 ```bash
