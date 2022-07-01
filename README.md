@@ -9,7 +9,7 @@ Desafio: Desenvolver uma API RESTful,com envio e retorno de informações no for
 
 # Rotas:
 
-### Produtos
+## Produtos
 /products -> GET:
 Lista os produtos (ID, descricao, valor e status do produto)
 
@@ -36,7 +36,7 @@ Edita um produto existente, esperando como request:
 }
 ```
 
-### Usuario
+## Usuario
 /users -> GET:
 Lista todos os usuarios cadastrados (id, nome, email, status do usuario)
 
@@ -63,7 +63,7 @@ Edita um usuario existente, esperando como request:
 }
 ```
 
-### Pedido
+## Pedido
 /orders -> GET:
 Lista todos os pedidos cadastrados (ID, numero do pedido, status do pedido, produto, descrição do produto, e usuario comprador)
 
@@ -94,31 +94,31 @@ Edita um pedido existente, esperando como request:
 
 Clonando o projeto:
 ```bash
-	git clone git@github.com:trickaugusto/symfonyTest.git
+git clone git@github.com:trickaugusto/symfonyTest.git
 ```
 
 Vá para o diretório:
 ```bash
-	cd symfonyTest
+cd symfonyTest
 ```
 
 Instalando as dependências:
 ```bash
-	composer install
+composer install
 ```
 
 Criando as migrations:
 ```bash
-	php bin/console make:migration
+php bin/console make:migration
 ```
 
 ```bash
-	php bin/console doctrine:migrations:migrate
+php bin/console doctrine:migrations:migrate
 ```
 
 Rodando o projeto
 ```bash
-	php -S 127.0.0.1:8080 -t public/
+php -S 127.0.0.1:8080 -t public/
 ```
 
 # Diagrama de classes:
