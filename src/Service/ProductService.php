@@ -63,7 +63,7 @@ class ProductService extends AbstractService
         ];
     }
 
-    public function add($jsonData)
+    public function create($jsonData)
     {
         $product = new Product();
         $product->setStatus($jsonData->status);

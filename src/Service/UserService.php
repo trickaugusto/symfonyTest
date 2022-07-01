@@ -63,7 +63,7 @@ class UserService extends AbstractService
         ];
     }
 
-    public function add($jsonData)
+    public function create($jsonData)
     {
         $user = new User();
         $user->setName($jsonData->name);

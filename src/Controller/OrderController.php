@@ -16,7 +16,7 @@ class OrderController extends AbstractController
     /**
     * @Route("/orders", name="app_orders", methods={"GET"})
     */
-    public function showAll(): JsonResponse
+    public function getAll(): JsonResponse
     {
         $order = new OrderService($this->getDoctrine()->getManager(), Order::class);
                 
@@ -32,7 +32,7 @@ class OrderController extends AbstractController
     /**
     * @Route("/order/{id}", name="order_show", methods={"GET"})
     */
-    public function showOne(int $id): JsonResponse
+    public function getById(int $id): JsonResponse
     {
         $order = new OrderService($this->getDoctrine()->getManager(), Order::class);
 
@@ -46,13 +46,13 @@ class OrderController extends AbstractController
     /**
     * @Route("/order", name="create_order", methods={"POST"})
     */
-    public function create(ManagerRegistry $doctrine, Request $request): Response
+    public function post(ManagerRegistry $doctrine, Request $request): Response
     {
         $requestBody = $request->getContent();
         $jsonData = json_decode($requestBody);
 
         $order = new OrderService($this->getDoctrine()->getManager(), Order::class);
-        $result = $order->add($jsonData);
+        $result = $order->create($jsonData);
 
         if ($result == 'Product or user not found') {
             return new JsonResponse(['message' => $result], Response::HTTP_NOT_FOUND);
@@ -64,7 +64,7 @@ class OrderController extends AbstractController
     /**
     * @Route("/order/{id}", name="edit_order", methods={"PATCH"})
     */
-    public function edit(ManagerRegistry $doctrine, int $id, Request $request): JsonResponse
+    public function patch(ManagerRegistry $doctrine, int $id, Request $request): JsonResponse
     {
         $requestBody = $request->getContent();
         $jsonData = json_decode($requestBody);

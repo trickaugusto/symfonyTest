@@ -16,7 +16,7 @@ class ProductController extends AbstractController
     /**
     * @Route("/products", name="app_product", methods={"GET"})
     */
-    public function showAll(): JsonResponse
+    public function getAll(): JsonResponse
     {
         $products = new ProductService($this->getDoctrine()->getManager(), Product::class);
                 
@@ -32,7 +32,7 @@ class ProductController extends AbstractController
     /**
     * @Route("/product/{id}", name="product_show", methods={"GET"})
     */
-    public function showOne(int $id): JsonResponse
+    public function getById(int $id): JsonResponse
     {
         $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
 
@@ -46,13 +46,13 @@ class ProductController extends AbstractController
     /**
     * @Route("/product", name="create_product", methods={"POST"})
     */
-    public function create(ManagerRegistry $doctrine, Request $request): Response
+    public function post(ManagerRegistry $doctrine, Request $request): Response
     {
         $requestBody = $request->getContent();
         $jsonData = json_decode($requestBody);
 
         $product = new ProductService($this->getDoctrine()->getManager(), Product::class);
-        $product->add($jsonData);
+        $product->create($jsonData);
 
         return new JsonResponse(null, 204);
     }
@@ -60,7 +60,7 @@ class ProductController extends AbstractController
     /**
     * @Route("/product/{id}", name="edit_product", methods={"PATCH"})
     */
-    public function edit(ManagerRegistry $doctrine, int $id, Request $request): JsonResponse
+    public function patch(ManagerRegistry $doctrine, int $id, Request $request): JsonResponse
     {
         $requestBody = $request->getContent();
         $jsonData = json_decode($requestBody);

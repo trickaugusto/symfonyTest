@@ -34,27 +34,6 @@ abstract class AbstractService
     }
 
     /**
-     * @param array $criteria
-     * @param array $orderBy
-     * @param null $limit
-     * @param null $offset
-     * @return array
-     */
-    protected function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-    {
-        return $this->model->findBy($criteria, $orderBy, $limit, $offset);
-    }
-
-    /**
-     * @param Criteria $criteria
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    protected function matching(Criteria $criteria)
-    {
-        return $this->model->matching($criteria);
-    }
-
-    /**
      * @param $id
      * @param int $lockMode
      * @param null $lockVersion
@@ -73,11 +52,6 @@ abstract class AbstractService
     protected function findOneBy(array $criteria, array $orderBy = null)
     {
         return $this->model->findOneBy($criteria, $orderBy);
-    }
-
-    protected function getReferenceObject($id)
-    {
-        return $this->em->getReference($this->model->getClassName(), $id);
     }
 
     protected function save($object)

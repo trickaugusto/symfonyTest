@@ -75,7 +75,7 @@ class OrderService extends AbstractService
         ];
     }
 
-    public function add($jsonData)
+    public function create($jsonData)
     {
         $product = new ProductService($this->em, Product::class);
         $user = new UserService($this->em, User::class);
@@ -105,11 +105,20 @@ class OrderService extends AbstractService
 
     public function edit($id, $jsonData)
     {
+        $product = new ProductService($this->em, Product::class);
+        $user = new UserService($this->em, User::class);
+
+        $productId = $jsonData->productId;
+        $userId = $jsonData->userId;
+
+        if (!$product->getOne($productId) || !$user->getOne($userId)) return 'Product or user not found';
+
         $order = $this->find($id);
 
         $order->setStatus($jsonData->status);
         $order->setProductId($jsonData->productId);
         $order->setUserId($jsonData->userId);
+        $order->setProductDescription($product->getOne($productId)['description']); 
 
         $order->setUpdatedAt(new \DateTime());
         
