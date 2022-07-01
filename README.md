@@ -107,7 +107,7 @@ Instalando as dependências:
 composer install
 ```
 
-OBS: Antes dos próximos passos, é importante criar um novo arquivo com nome '.env', usando como base o arquivo '.env example.
+OBS: Antes dos próximos passos, é importante criar um novo arquivo com nome '.env', usando como base o arquivo '.env example'.
 Depois só procurar essa linha: 'DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name', substituindo as seguintes informações: db_user, db_password e dbname, para as informações do seu local.
 
 Criando a base no banco:
