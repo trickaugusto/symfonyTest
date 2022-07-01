@@ -18,19 +18,23 @@ Lista um id em específico
 
 /product -> POST:
 Cria um novo produto, esperando como request:
+```javascript
 {
 	"status": "Inativo",
 	"price": 10.00,
 	"description": "terceiro"
 }
+```
 
 /product/{id} -> PATCH:
 Edita um produto existente, esperando como request:
+```javascript
 {
-	"status": "Inativo",
+	"status": "Ativo",
 	"price": 10.00,
 	"description": "terceiro"
 }
+```
 
 ### Usuario
 /users -> GET:
@@ -41,20 +45,23 @@ Lista um id em específico
 
 /user -> POST:
 Cria um novo usuario, esperando como request:
+```javascript
 {
 	"name": "Jão",
 	"email": "teste@gmail.com",
 	"status": "ativo"
 }
+```
 
 /user{id} -> PATCH:
 Edita um usuario existente, esperando como request:
+```javascript
 {
 	"name": "Jão",
 	"email": "teste@gmail.com",
 	"status": "inativo"
 }
-
+```
 
 ### Pedido
 /orders -> GET:
@@ -65,27 +72,54 @@ Lista um id em específico
 
 /order -> POST:
 Cria um novo pedido, esperando como request:
+```javascript
 {
     "status": "inativo",
     "productId": "4",
     "userId": "5"
 }
+```
 
 /order{id} -> PATCH:
 Edita um pedido existente, esperando como request:
+```javascript
 {
-    "status": "inativo",
+    "status": "ativo",
     "productId": "4",
     "userId": "5"
 }
+```
 
-# Banco de dados
+# Rodando localmente
 
-Criadas via migrations:
+Clonando o projeto:
+```bash
+	git clone git@github.com:trickaugusto/symfonyTest.git
+```
 
-'php bin/console make:migration'
-'php bin/console doctrine:migrations:migrate'
+Vá para o diretório:
+```bash
+	cd symfonyTest
+```
 
-# Rodando o projeto
-Basicamente, depois de ter criado as tabelas localmente, só rodar
-'php -S 127.0.0.1:8080 -t public/'
+Instalando as dependências:
+```bash
+	composer install
+```
+
+Criando as migrations:
+```bash
+	php bin/console make:migration
+```
+
+```bash
+	php bin/console doctrine:migrations:migrate
+```
+
+Rodando o projeto
+```bash
+	php -S 127.0.0.1:8080 -t public/
+```
+
+# Diagrama de classes:
+[UML](https://github.com/trickaugusto/symfonyTest/blob/master/UML%20Diagram.png)
