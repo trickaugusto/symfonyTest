@@ -121,5 +121,7 @@ Rodando o projeto
 php -S 127.0.0.1:8080 -t public/
 ```
 
+Agora só abrir um insomnia da vida e ser feliz!
+
 # Diagrama de classes:
 [UML](https://github.com/trickaugusto/symfonyTest/blob/master/UML%20Diagram.png)
