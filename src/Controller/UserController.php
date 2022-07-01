@@ -48,11 +48,9 @@ class UserController extends AbstractController
     */
     public function create(ManagerRegistry $doctrine, Request $request): Response
     {
-        // pega dados da requisição
         $requestBody = $request->getContent();
         $jsonData = json_decode($requestBody);
 
-        // instancia um novo user e adiciona no banco
         $user = new UserService($this->getDoctrine()->getManager(), User::class);
         $user->add($jsonData);
 

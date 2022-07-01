@@ -48,11 +48,9 @@ class OrderController extends AbstractController
     */
     public function create(ManagerRegistry $doctrine, Request $request): Response
     {
-        // pega dados da requisição
         $requestBody = $request->getContent();
         $jsonData = json_decode($requestBody);
 
-        // instancia um novo order e adiciona no banco
         $order = new OrderService($this->getDoctrine()->getManager(), Order::class);
         $result = $order->add($jsonData);
 
